@@ -1,0 +1,47 @@
+{
+  "name": "genfuze-ai",
+  "version": "1.0.0",
+  "description": "Genfuze.ai - Complete application with landing page and autobrowser app",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:landing\" \"npm run dev:autobrowser\"",
+    "dev:landing": "cd content-genesis-optimizer-main && npm run dev",
+    "dev:autobrowser": "cd auto_browser/project && npm run dev",
+    "build": "npm run build:landing && npm run build:autobrowser",
+    "build:landing": "cd content-genesis-optimizer-main && npm run build",
+    "build:autobrowser": "cd auto_browser/project && npm run build",
+    "install:all": "npm install && cd content-genesis-optimizer-main && npm install && cd ../../auto_browser/project && npm install",
+    "setup": "npm run install:all",
+    "start": "npm run dev",
+    "clean": "npm run clean:landing && npm run clean:autobrowser",
+    "clean:landing": "cd content-genesis-optimizer-main && rm -rf node_modules dist",
+    "clean:autobrowser": "cd auto_browser/project && rm -rf node_modules dist",
+    "reset": "npm run clean && npm run install:all"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "workspaces": [
+    "content-genesis-optimizer-main",
+    "auto_browser/project"
+  ],
+  "keywords": [
+    "genfuze",
+    "ai",
+    "landing-page",
+    "autobrowser",
+    "react",
+    "vite",
+    "typescript"
+  ],
+  "author": "Genfuze.ai Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/genfuze-ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/genfuze-ai/issues"
+  },
+  "homepage": "https://github.com/your-org/genfuze-ai#readme"
+} 
