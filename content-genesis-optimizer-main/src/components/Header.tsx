@@ -31,14 +31,14 @@ const Header = () => {
           <Button 
             variant="ghost" 
             size="sm"
-            onClick={() => window.location.href = import.meta.env.VITE_AUTOBROWSER_URL || 'http://localhost:5174/CloudFuzeLLMQA'}
+            onClick={() => window.location.href = 'http://139.59.32.231:5174/CloudFuzeLLMQA'}
           >
             Sign In
           </Button>
           <Button 
             variant="hero" 
             size="sm"
-            onClick={() => window.location.href = import.meta.env.VITE_AUTOBROWSER_URL || 'http://localhost:5174/CloudFuzeLLMQA'}
+            onClick={() => window.location.href = 'http://139.59.32.231:5174/CloudFuzeLLMQA'}
           >
             Get Started
           </Button>

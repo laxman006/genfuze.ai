@@ -33,7 +33,7 @@ const CTASection = () => {
               variant="hero" 
               size="xl" 
               className="min-w-[200px]"
-              onClick={() => window.location.href = import.meta.env.VITE_AUTOBROWSER_URL || 'http://localhost:5174/CloudFuzeLLMQA'}
+              onClick={() => window.location.href = 'http://139.59.32.231:5174/CloudFuzeLLMQA'}
             >
               Start Free Trial
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

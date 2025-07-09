@@ -33,7 +33,7 @@ const HeroSection = () => {
               variant="hero" 
               size="xl" 
               className="group"
-              onClick={() => window.location.href = import.meta.env.VITE_AUTOBROWSER_URL || 'http://localhost:5174/CloudFuzeLLMQA'}
+              onClick={() => window.location.href = 'http://139.59.32.231:5174/CloudFuzeLLMQA'}
             >
               Start Free Trial
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
