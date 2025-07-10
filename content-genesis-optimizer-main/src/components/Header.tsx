@@ -39,15 +39,23 @@ const Header = () => {
           <Button 
             variant="ghost" 
             size="sm"
+<<<<<<< HEAD
             onClick={handleSignIn}
             className="text-muted-foreground hover:text-primary hover:bg-primary/10 border border-transparent hover:border-primary/20 transition-all duration-200"
+=======
+            onClick={() => window.location.href = 'http://139.59.32.231:5174/CloudFuzeLLMQA'}
+>>>>>>> 43a69ee01c185be4bfc5fe35e2759e65bc4b1a20
           >
             Sign In
           </Button>
           <Button 
             onClick={handleGetStarted}
             size="sm"
+<<<<<<< HEAD
             className="bg-gradient-primary text-primary-foreground hover:shadow-glow transition-all duration-200 font-semibold"
+=======
+            onClick={() => window.location.href = 'http://139.59.32.231:5174/CloudFuzeLLMQA'}
+>>>>>>> 43a69ee01c185be4bfc5fe35e2759e65bc4b1a20
           >
             Get Started
           </Button>

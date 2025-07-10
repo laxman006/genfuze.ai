@@ -14,6 +14,7 @@ module.exports = {
           gray: '#232323',
           white: '#FFFFFF',
         },
+        'genfuze-green': '#39FF14', // Neon green for Genfuze branding
         primary: '#00FF41',
         background: '#101010',
         card: '#181818',

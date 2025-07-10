@@ -37,9 +37,16 @@ const CTASection = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button 
+<<<<<<< HEAD
               onClick={handleStartTrial}
               size="lg" 
               className="min-w-[200px] bg-gradient-primary text-primary-foreground hover:shadow-glow transition-all duration-200 font-semibold text-lg px-8 py-4"
+=======
+              variant="hero" 
+              size="xl" 
+              className="min-w-[200px]"
+              onClick={() => window.location.href = 'http://139.59.32.231:5174/CloudFuzeLLMQA'}
+>>>>>>> 43a69ee01c185be4bfc5fe35e2759e65bc4b1a20
             >
               Get Started Free
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
