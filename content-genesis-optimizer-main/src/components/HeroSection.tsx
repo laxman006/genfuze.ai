@@ -39,16 +39,9 @@ const HeroSection = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button 
-<<<<<<< HEAD
-              onClick={handleStartTrial}
-              size="lg" 
-              className="group bg-gradient-primary text-primary-foreground hover:shadow-glow transition-all duration-200 font-semibold text-lg px-8 py-4"
-=======
-              variant="hero" 
-              size="xl" 
-              className="group"
-              onClick={() => window.location.href = 'http://139.59.32.231:5174/CloudFuzeLLMQA'}
->>>>>>> 43a69ee01c185be4bfc5fe35e2759e65bc4b1a20
+onClick={handleStartTrial}
+size="lg" 
+className="group bg-gradient-primary text-primary-foreground hover:shadow-glow transition-all duration-200 font-semibold text-lg px-8 py-4"
             >
               Get Started Free
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform ml-2" />
