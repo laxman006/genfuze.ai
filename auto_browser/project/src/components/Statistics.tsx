@@ -1,98 +1,85 @@
 import React from 'react';
-import { BarChart3, Target, Coins, Hash } from 'lucide-react';
+import { BarChart3, TrendingUp, DollarSign, Activity } from 'lucide-react';
+import { SessionData } from '../types';
 
 interface StatisticsProps {
-  totalQuestions: number;
-  avgAccuracy: number;
-  avgCitationLikelihood?: number;
-  totalTokens: number;
-  totalCost: number;
-  inputTokens: number;
-  outputTokens: number;
-  inputCost: number;
-  outputCost: number;
-  isVisible: boolean;
+  sessions: SessionData[];
+  currentSession: SessionData | null;
 }
 
-export function Statistics({
-  totalQuestions,
-  avgAccuracy,
-  avgCitationLikelihood,
-  totalTokens,
-  totalCost,
-  inputTokens,
-  outputTokens,
-  inputCost,
-  outputCost,
-  isVisible
-}: StatisticsProps) {
-  if (!isVisible) return null;
+export function Statistics({ sessions, currentSession }: StatisticsProps) {
+  const totalQuestions = sessions.reduce((sum, session) => sum + session.statistics.totalQuestions, 0);
+  const totalCost = sessions.reduce((sum, session) => sum + parseFloat(session.statistics.totalCost), 0);
+  const avgAccuracy = sessions.length > 0 
+    ? sessions.reduce((sum, session) => sum + parseFloat(session.statistics.avgAccuracy), 0) / sessions.length 
+    : 0;
 
   return (
-    <>
-      <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg">
-            <BarChart3 className="w-5 h-5 text-white" />
+    <div className="card backdrop-blur-md bg-black/80 border border-genfuze-green/60 shadow-xl">
+      <div className="flex items-center gap-3 mb-6">
+        <BarChart3 className="w-7 h-7 text-genfuze-green" />
+        <h2 className="text-2xl font-bold text-genfuze-green">Statistics</h2>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="bg-gray-800/50 border border-gray-600/30 rounded-lg p-6 text-center">
+          <div className="flex items-center justify-center w-12 h-12 bg-genfuze-green/20 rounded-lg mx-auto mb-4">
+            <Activity className="w-6 h-6 text-genfuze-green" />
           </div>
-          <h2 className="text-xl font-semibold text-gray-800">Statistics</h2>
+          <div className="text-3xl font-bold text-genfuze-green mb-2">{totalQuestions}</div>
+          <div className="text-gray-400">Total Questions</div>
         </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-4 rounded-lg text-white text-center">
-            <Hash className="w-6 h-6 mx-auto mb-2" />
-            <div className="text-2xl font-bold">{totalQuestions}</div>
-            <div className="text-blue-100 text-sm">Total Questions</div>
+
+        <div className="bg-gray-800/50 border border-gray-600/30 rounded-lg p-6 text-center">
+          <div className="flex items-center justify-center w-12 h-12 bg-blue-500/20 rounded-lg mx-auto mb-4">
+            <TrendingUp className="w-6 h-6 text-blue-400" />
           </div>
-          
-          <div className="bg-gradient-to-br from-green-500 to-green-600 p-4 rounded-lg text-white text-center">
-            <Target className="w-6 h-6 mx-auto mb-2" />
-            <div className="text-2xl font-bold">{avgAccuracy.toFixed(1)}%</div>
-            <div className="text-green-100 text-sm">Avg Accuracy</div>
+          <div className="text-3xl font-bold text-blue-400 mb-2">{avgAccuracy.toFixed(1)}%</div>
+          <div className="text-gray-400">Average Accuracy</div>
+        </div>
+
+        <div className="bg-gray-800/50 border border-gray-600/30 rounded-lg p-6 text-center">
+          <div className="flex items-center justify-center w-12 h-12 bg-green-500/20 rounded-lg mx-auto mb-4">
+            <DollarSign className="w-6 h-6 text-green-400" />
           </div>
-          
-          <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-4 rounded-lg text-white text-center">
-            <Hash className="w-6 h-6 mx-auto mb-2" />
-            <div className="text-2xl font-bold">{totalTokens.toLocaleString()}</div>
-            <div className="text-purple-100 text-sm">Total Tokens</div>
+          <div className="text-3xl font-bold text-green-400 mb-2">${totalCost.toFixed(2)}</div>
+          <div className="text-gray-400">Total Cost</div>
+        </div>
+
+        <div className="bg-gray-800/50 border border-gray-600/30 rounded-lg p-6 text-center">
+          <div className="flex items-center justify-center w-12 h-12 bg-purple-500/20 rounded-lg mx-auto mb-4">
+            <BarChart3 className="w-6 h-6 text-purple-400" />
           </div>
-          
-          <div className="bg-gradient-to-br from-orange-500 to-orange-600 p-4 rounded-lg text-white text-center">
-            <Coins className="w-6 h-6 mx-auto mb-2" />
-            <div className="text-2xl font-bold">${totalCost.toFixed(4)}</div>
-            <div className="text-orange-100 text-sm">Estimated Cost</div>
-          </div>
+          <div className="text-3xl font-bold text-purple-400 mb-2">{sessions.length}</div>
+          <div className="text-gray-400">Total Sessions</div>
         </div>
       </div>
-      
-      <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl p-6 text-white shadow-lg">
-        <div className="flex items-center gap-3 mb-4">
-          <Coins className="w-6 h-6" />
-          <h3 className="text-lg font-semibold">Token Cost Breakdown</h3>
-        </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg text-center">
-            <div className="text-lg font-bold">{inputTokens.toLocaleString()}</div>
-            <div className="text-emerald-100 text-sm">Input Tokens</div>
-          </div>
-          
-          <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg text-center">
-            <div className="text-lg font-bold">{outputTokens.toLocaleString()}</div>
-            <div className="text-emerald-100 text-sm">Output Tokens</div>
-          </div>
-          
-          <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg text-center">
-            <div className="text-lg font-bold">${inputCost.toFixed(4)}</div>
-            <div className="text-emerald-100 text-sm">Input Cost</div>
-          </div>
-          
-          <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg text-center">
-            <div className="text-lg font-bold">${outputCost.toFixed(4)}</div>
-            <div className="text-emerald-100 text-sm">Output Cost</div>
+
+      {currentSession && (
+        <div className="bg-gray-800/50 border border-gray-600/30 rounded-lg p-6">
+          <h3 className="text-xl font-semibold text-white mb-4">Current Session: {currentSession.name}</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <div className="text-sm text-gray-400">Questions Generated</div>
+              <div className="text-2xl font-bold text-genfuze-green">{currentSession.statistics.totalQuestions}</div>
+            </div>
+            <div>
+              <div className="text-sm text-gray-400">Average Accuracy</div>
+              <div className="text-2xl font-bold text-blue-400">{currentSession.statistics.avgAccuracy}%</div>
+            </div>
+            <div>
+              <div className="text-sm text-gray-400">Total Cost</div>
+              <div className="text-2xl font-bold text-green-400">${currentSession.statistics.totalCost}</div>
+            </div>
           </div>
         </div>
+      )}
+
+      <div className="mt-6 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+        <span className="font-medium text-blue-300">
+          Statistics provide insights into your Q&A generation performance and costs.
+        </span>
       </div>
-    </>
+    </div>
   );
 }

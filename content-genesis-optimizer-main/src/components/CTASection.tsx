@@ -3,6 +3,15 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Sparkles, Zap } from "lucide-react";
 
 const CTASection = () => {
+  const handleStartTrial = () => {
+    window.location.href = import.meta.env.VITE_AUTOBROWSER_URL || 'http://localhost:5174/CloudFuzeLLMQA';
+  };
+
+  const handleViewPricing = () => {
+    // Scroll to pricing section
+    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="py-20 bg-gradient-hero relative overflow-hidden">
       {/* Background effects */}
@@ -14,31 +23,33 @@ const CTASection = () => {
         <div className="max-w-4xl mx-auto text-center">
           <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
             <Zap className="w-4 h-4 mr-2" />
-            Ready to Transform Your Content?
+            Ready to Generate Q&A Instantly?
           </Badge>
           
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent leading-tight">
-            Smarter content.
-            <span className="block text-primary">Bigger impact. Now.</span>
+            Smarter content workflows.<br />
+            <span className="block text-primary">All your Q&A, sessions, and stats.</span>
           </h2>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-            Unlock AI-driven questions, deep content insights, and seamless browser automation. 
-            Choose your plan, boost engagement, and let your site shine in every AI model. 
-            Ready to amplify your reach?
+            Unlock instant Q&A generation, session management, detailed statistics, and cost breakdowns—all in one seamless dashboard. Paste a URL or content, generate questions and answers, and export your results with a click.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button 
-              variant="hero" 
-              size="xl" 
-              className="min-w-[200px]"
-              onClick={() => window.location.href = import.meta.env.VITE_AUTOBROWSER_URL || 'http://localhost:5174/CloudFuzeLLMQA'}
+              onClick={handleStartTrial}
+              size="lg" 
+              className="min-w-[200px] bg-gradient-primary text-primary-foreground hover:shadow-glow transition-all duration-200 font-semibold text-lg px-8 py-4"
             >
-              Start Free Trial
+              Get Started Free
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="premium" size="xl" className="min-w-[200px]">
+            <Button 
+              onClick={handleViewPricing}
+              variant="outline" 
+              size="lg" 
+              className="min-w-[200px] border-primary/30 text-primary hover:bg-primary/10 hover:border-primary transition-all duration-200 font-semibold text-lg px-8 py-4"
+            >
               <Sparkles className="w-5 h-5 mr-2" />
               View Pricing
             </Button>
@@ -46,20 +57,20 @@ const CTASection = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto text-center">
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-2">10K+</div>
-              <div className="text-sm text-muted-foreground">Questions Generated</div>
+              <div className="text-2xl md:text-3xl font-bold text-primary mb-2">Q&A</div>
+              <div className="text-sm text-muted-foreground">Generation</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-2">500+</div>
-              <div className="text-sm text-muted-foreground">Happy Customers</div>
+              <div className="text-2xl md:text-3xl font-bold text-primary mb-2">Sessions</div>
+              <div className="text-sm text-muted-foreground">Management</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-2">99.9%</div>
-              <div className="text-sm text-muted-foreground">Uptime</div>
+              <div className="text-2xl md:text-3xl font-bold text-primary mb-2">Statistics</div>
+              <div className="text-sm text-muted-foreground">& Cost Breakdown</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-2">24/7</div>
-              <div className="text-sm text-muted-foreground">Support</div>
+              <div className="text-2xl md:text-3xl font-bold text-primary mb-2">Export</div>
+              <div className="text-sm text-muted-foreground">& Analytics</div>
             </div>
           </div>
         </div>

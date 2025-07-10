@@ -1,14 +1,15 @@
 import React from 'react';
-import { TrendingUp, AlertCircle, CheckCircle, Info } from 'lucide-react';
+import { TrendingUp, AlertCircle, CheckCircle, Info, Loader2 } from 'lucide-react';
 
 interface ProgressSectionProps {
   progress: number;
   status: string;
   statusType: 'info' | 'success' | 'error';
   isVisible: boolean;
+  isLoading?: boolean;
 }
 
-export function ProgressSection({ progress, status, statusType, isVisible }: ProgressSectionProps) {
+export function ProgressSection({ progress, status, statusType, isVisible, isLoading }: ProgressSectionProps) {
   if (!isVisible) return null;
 
   const getStatusIcon = () => {
@@ -34,7 +35,11 @@ export function ProgressSection({ progress, status, statusType, isVisible }: Pro
   };
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+    <div className="card mb-8 backdrop-blur-md bg-black/80 border border-genfuze-green/60 shadow-xl">
+      <div className="flex items-center gap-2 mb-2">
+        <TrendingUp className="w-5 h-5 text-genfuze-green animate-pulse" />
+        <h3 className="text-lg font-bold text-genfuze-green">Progress</h3>
+      </div>
       <div className="flex items-center gap-3 mb-6">
         <div className="p-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg">
           <TrendingUp className="w-5 h-5 text-white" />
@@ -55,6 +60,7 @@ export function ProgressSection({ progress, status, statusType, isVisible }: Pro
           <span className="font-medium">{status}</span>
         </div>
       </div>
+      {isLoading && <div className="spinner mt-4" />}
     </div>
   );
 }

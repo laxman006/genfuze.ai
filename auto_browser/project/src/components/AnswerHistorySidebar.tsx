@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SessionData } from '../types';
-import { Filter, Calendar, Cpu, Link, ChevronDown, X } from 'lucide-react';
+import { Filter, Calendar, Cpu, Link, ChevronDown, X, History as HistoryIcon } from 'lucide-react';
 
 interface AnswerHistorySidebarProps {
   answerSessions: SessionData[];
@@ -253,13 +253,10 @@ export function AnswerHistorySidebar({
   };
 
   return (
-    <div className="bg-white rounded-xl p-4 shadow-lg border border-gray-100">
-      <div className="flex items-center gap-2 mb-4">
-        <h3 className="text-lg font-semibold text-gray-800">Answer History</h3>
-        <span className="text-sm text-gray-500">({filteredSessions.length})</span>
-        {isLoading && (
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600"></div>
-        )}
+    <aside className="card w-80 h-full fixed left-0 top-0 z-40 backdrop-blur-md bg-black/90 border-r border-genfuze-green/60 shadow-xl flex flex-col">
+      <div className="flex items-center gap-3 mb-4 p-4 border-b border-genfuze-green/30">
+        <HistoryIcon className="w-6 h-6 text-genfuze-green" />
+        <h2 className="text-xl font-bold text-genfuze-green">Answer History</h2>
       </div>
       
       {/* Filter Dropdown */}
@@ -475,6 +472,6 @@ export function AnswerHistorySidebar({
           </div>
         </div>
       )}
-    </div>
+    </aside>
   );
 } 

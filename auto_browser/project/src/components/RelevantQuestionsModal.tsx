@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Brain, Calendar, Link, X, CheckCircle, AlertCircle, Users } from 'lucide-react';
+import { Search, Brain, Calendar, Link, X, CheckCircle, AlertCircle, Users, Zap } from 'lucide-react';
 
 interface RelevantQuestion {
   question: string;
@@ -139,8 +139,12 @@ export function RelevantQuestionsModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-      <div className="bg-white rounded-xl shadow-xl max-w-4xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+      <div className="card max-w-lg w-full mx-auto bg-black/95 border border-genfuze-green/60 shadow-2xl">
+        <div className="flex items-center gap-3 mb-4">
+          <Zap className="w-6 h-6 text-genfuze-green" />
+          <h2 className="text-xl font-bold text-genfuze-green">Relevant Questions</h2>
+        </div>
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
           onClick={onClose}

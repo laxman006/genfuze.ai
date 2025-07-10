@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingUp, Target, FileText } from 'lucide-react';
+import { TrendingUp, Target, FileText, BarChart3 } from 'lucide-react';
 
 interface VectorSimilarityProps {
   questionSimilarity?: number;
@@ -54,10 +54,10 @@ export function VectorSimilarity({
   }
 
   return (
-    <div className="mt-4 p-4 bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg">
-      <div className="flex items-center gap-2 mb-3">
-        <TrendingUp className="w-4 h-4 text-purple-600" />
-        <h5 className="font-semibold text-gray-800">Vector Similarity Analysis</h5>
+    <div className="card max-w-xl mx-auto mb-8 backdrop-blur-md bg-black/80 border border-genfuze-green/60 shadow-xl">
+      <div className="flex items-center gap-3 mb-4">
+        <BarChart3 className="w-6 h-6 text-genfuze-green" />
+        <h2 className="text-xl font-bold text-genfuze-green">Vector Similarity</h2>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">

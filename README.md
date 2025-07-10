@@ -1,28 +1,102 @@
-# Genfuze.ai - Complete Application
+# Genfuze.ai - Complete Q&A Generation Platform
 
-This repository contains both the landing page and the autobrowser application for Genfuze.ai.
+A modern, full-stack application for generating questions and answers from content using AI. Features a beautiful green/black theme with glassmorphism design.
 
-## 🚀 Quick Start for Team Members
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js (v16 or higher)
 - npm or yarn
-- Git
 
-### One Command Setup
+### 1. Landing Page (Port 5173)
 ```bash
-# Clone the repository
-git clone https://github.com/your-org/genfuze-ai.git
-cd genfuze-ai
-
-# Install all dependencies and start both apps
-npm run setup
+cd content-genesis-optimizer-main
+npm install
 npm run dev
 ```
+Visit: http://localhost:5173
 
-### Application URLs
-- **Landing Page**: http://localhost:8080
-- **Autobrowser App**: http://localhost:5174/CloudFuzeLLMQA
+### 2. Main Application (Port 5174)
+```bash
+cd auto_browser/project
+npm install
+npm run dev
+```
+Visit: http://localhost:5174
+
+### 3. Backend Server (Port 5000)
+```bash
+cd auto_browser/project/backend
+npm install
+npm start
+```
+API: http://localhost:5000
+
+## 🎨 Features
+
+### Landing Page
+- **Modern Design**: Clean green/black theme with glassmorphism effects
+- **Responsive**: Works on all devices
+- **Call-to-Action**: Direct navigation to main app
+- **Professional**: Matches marketing site aesthetics
+
+### Main Application
+- **Authentication**: Local login/register system
+- **Q&A Generation**: AI-powered question and answer creation
+- **Session Management**: Save and load different sessions
+- **History**: View and export Q&A history
+- **Statistics**: Performance and cost analytics
+- **Cost Breakdown**: Detailed cost tracking
+
+### Backend
+- **RESTful API**: Complete backend services
+- **Local Authentication**: User management system
+- **LLM Integration**: Support for multiple AI providers
+- **Data Persistence**: Session and user data storage
+
+## 🎯 User Flow
+
+1. **Landing Page** → Visit the beautiful landing page
+2. **Sign Up/Login** → Create account or sign in
+3. **Dashboard** → Access the main Q&A generation interface
+4. **Generate Q&A** → Input content and generate questions/answers
+5. **Manage Sessions** → Save, load, and organize your work
+6. **View History** → Review past generations
+7. **Analytics** → Check statistics and costs
+
+## 🛠️ Technology Stack
+
+### Frontend
+- **React** with TypeScript
+- **Tailwind CSS** for styling
+- **Lucide React** for icons
+- **Vite** for build tooling
+
+### Backend
+- **Node.js** with Express
+- **JWT** for authentication
+- **JSON** file storage
+- **CORS** enabled
+
+### AI Integration
+- **Gemini** (Google)
+- **OpenAI** (ChatGPT)
+- **Perplexity**
+- **Google Serper** (Search)
+
+## 🎨 Design System
+
+### Color Palette
+- **Primary Green**: `#00ff88` (genfuze-green)
+- **Background**: Black and dark grays
+- **Accents**: Green gradients and glows
+- **Text**: White and light grays
+
+### Components
+- **Glassmorphism**: Translucent cards with blur effects
+- **Gradients**: Green to green-400 transitions
+- **Animations**: Smooth hover and focus states
+- **Responsive**: Mobile-first design
 
 ## 📁 Project Structure
 
@@ -30,206 +104,118 @@ npm run dev
 genfuze.ai/
 ├── content-genesis-optimizer-main/    # Landing page
 │   ├── src/
-│   ├── package.json
-│   └── vite.config.ts
-├── auto_browser/project/              # Autobrowser application
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── App.tsx
+│   └── package.json
+├── auto_browser/project/              # Main application
 │   ├── src/
-│   ├── package.json
-│   └── vite.config.ts
-├── package.json                       # Root package.json
-└── README.md                         # This file
-```
-
-## 🛠️ Available Scripts
-
-### Root Level Commands
-```bash
-npm run dev              # Start both applications
-npm run dev:landing      # Start only landing page
-npm run dev:autobrowser  # Start only autobrowser app
-npm run build            # Build both applications
-npm run setup            # Install all dependencies
-npm run clean            # Clean all node_modules and dist
-npm run reset            # Clean and reinstall everything
-```
-
-### Individual Application Commands
-```bash
-# Landing Page
-cd content-genesis-optimizer-main
-npm run dev              # Development server
-npm run build            # Production build
-
-# Autobrowser App
-cd auto_browser/project
-npm run dev              # Development server
-npm run build            # Production build
-```
-
-## 🔧 Development Workflow
-
-### For Landing Page Changes
-```bash
-cd content-genesis-optimizer-main
-npm run dev
-# Make changes in src/
-# Test at http://localhost:8080
-```
-
-### For Autobrowser App Changes
-```bash
-cd auto_browser/project
-npm run dev
-# Make changes in src/
-# Test at http://localhost:5174/CloudFuzeLLMQA
-```
-
-### For Both Applications
-```bash
-npm run dev
-# Both apps run simultaneously
-# Landing: http://localhost:8080
-# Autobrowser: http://localhost:5174/CloudFuzeLLMQA
+│   │   ├── components/
+│   │   ├── contexts/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   └── App.tsx
+│   ├── backend/                       # Backend server
+│   │   ├── server.js
+│   │   ├── auth.js
+│   │   └── package.json
+│   └── package.json
+└── README.md
 ```
 
 ## 🔧 Configuration
 
 ### Environment Variables
 
-Create a `.env` file in `content-genesis-optimizer-main/`:
-```bash
-# For local development
-VITE_AUTOBROWSER_URL=http://localhost:5174/CloudFuzeLLMQA
+#### Backend (.env)
+```env
+PORT=5000
+AUTH_TYPE=local
+ENABLE_LOCAL_AUTH=true
+JWT_SECRET=your-super-secret-jwt-key
+JWT_REFRESH_SECRET=your-super-secret-refresh-key
+```
 
-# For production
-VITE_AUTOBROWSER_URL=https://app.genfuze.ai
+#### Frontend (.env)
+```env
+VITE_REACT_APP_API_URL=http://localhost:5000/api
+VITE_APP_NAME=Genfuze.ai
 ```
 
 ## 🚀 Deployment
 
-### Landing Page
-- Deploy `content-genesis-optimizer-main/` to your hosting platform
-- Set `VITE_AUTOBROWSER_URL` to your production autobrowser URL
+### Development
+1. Start all three services (landing, main app, backend)
+2. Ensure ports 5173, 5174, and 5000 are available
+3. Visit http://localhost:5173 to start
 
-### Autobrowser App
-- Deploy `auto_browser/project/` to your hosting platform
-- Ensure the base path is `/CloudFuzeLLMQA`
+### Production
+- Deploy backend to your preferred hosting service
+- Deploy frontend applications to Vercel, Netlify, or similar
+- Update environment variables for production URLs
 
-## 👥 Team Collaboration
+## 🎯 Key Features
 
-### Git Workflow
-```bash
-# Create a new feature branch
-git checkout -b feature/your-feature-name
+### Authentication
+- Local user registration and login
+- JWT token-based authentication
+- Secure password hashing
+- Session management
 
-# Make your changes
-# Test your changes
+### Q&A Generation
+- Multiple AI provider support
+- Configurable models and parameters
+- Real-time generation with progress indicators
+- Cost tracking and optimization
 
-# Commit your changes
-git add .
-git commit -m "feat: add your feature description"
+### Data Management
+- Session persistence
+- Export functionality (CSV)
+- History tracking
+- Statistics and analytics
 
-# Push to remote
-git push origin feature/your-feature-name
+### User Experience
+- Modern, responsive design
+- Intuitive navigation
+- Real-time feedback
+- Error handling
 
-# Create pull request
-# Merge after review
-```
+## 🔒 Security
 
-### Branch Naming Convention
-- `feature/` - New features
-- `fix/` - Bug fixes
-- `docs/` - Documentation updates
-- `refactor/` - Code refactoring
-- `test/` - Adding tests
+- JWT token authentication
+- Password hashing with bcrypt
+- CORS configuration
+- Input validation
+- Rate limiting (configurable)
 
-### Commit Message Convention
-```
-type(scope): description
+## 📊 Analytics
 
-Examples:
-feat(landing): add new hero section
-fix(autobrowser): resolve login redirect issue
-docs: update README with new setup instructions
-```
+- Question generation statistics
+- Cost tracking and breakdown
+- Performance metrics
+- Usage analytics
 
-## 🐛 Troubleshooting
+## 🎨 Customization
 
-### Port Conflicts
-If you get port conflicts:
-```bash
-# Check what's using the ports
-netstat -ano | findstr :8080
-netstat -ano | findstr :5174
+The application uses a consistent design system that can be easily customized:
 
-# Kill the process or change ports in vite.config.ts
-```
-
-### Dependencies Issues
-```bash
-# Clean install
-npm run reset
-```
-
-### Concurrently Issues
-```bash
-npm install -g concurrently
-npm run dev
-```
-
-### Node Modules Issues
-```bash
-# Remove all node_modules
-npm run clean
-
-# Reinstall
-npm run setup
-```
-
-## 📝 Development Notes
-
-- Landing page runs on port 8080
-- Autobrowser app runs on port 5174
-- Both apps use Vite for development
-- Landing page redirects to autobrowser app on button clicks
-- Use TypeScript for type safety
-- Follow ESLint rules for code consistency
-
-## 🔒 Security Notes
-
-- Never commit `.env` files
-- Keep API keys secure
-- Use environment variables for sensitive data
-- Review dependencies regularly
-
-## 📊 Performance
-
-### Landing Page Optimization
-- Image optimization
-- Lazy loading
-- Code splitting
-- CDN usage
-
-### Autobrowser App Optimization
-- Bundle optimization
-- Service worker caching
-- Progressive web app features
+- **Colors**: Update Tailwind config for new color schemes
+- **Components**: Modular component architecture
+- **Themes**: Easy theme switching capability
+- **Branding**: Replace logos and branding elements
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch
+2. Create a feature branch
 3. Make your changes
 4. Test thoroughly
 5. Submit a pull request
 
-## 📞 Support
-
-For questions or issues:
-- Create an issue on GitHub
-- Contact the team lead
-- Check the documentation
-
 ## 📄 License
 
-This project is licensed under the MIT License. 
+This project is proprietary software for Genfuze.ai.
+
+---
+
+**Ready to generate amazing Q&A content? Start with the landing page at http://localhost:5173!** 

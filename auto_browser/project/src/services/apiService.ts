@@ -474,6 +474,20 @@ class ApiService {
     if (!res.ok) throw new Error('Failed to get GEO fanout analysis: ' + (json.error || res.status));
     return json;
   }
+
+  async extractContentFromUrl(url: string): Promise<{ success: boolean; content: string; title?: string; description?: string }> {
+    const res = await fetch(`${API_BASE_URL}/extract-content`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken') || ''}`
+      },
+      body: JSON.stringify({ url })
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || 'Failed to extract content');
+    return json;
+  }
 }
 
 export const apiService = new ApiService(); 

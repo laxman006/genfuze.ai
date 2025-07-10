@@ -2,6 +2,13 @@ import { User, LoginResponse, AuthConfig } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_REACT_APP_API_URL || 'http://localhost:5000/api';
 
+// Extend Window interface for MSAL
+declare global {
+  interface Window {
+    msalInstance?: any; // Using any for MSAL instance to avoid complex typing
+  }
+}
+
 class AuthService {
   private config: AuthConfig = {
     clientId: import.meta.env.VITE_REACT_APP_AZURE_CLIENT_ID || '',
@@ -136,21 +143,27 @@ class AuthService {
   // Logout
   async logout(): Promise<void> {
     try {
-      const msalInstance = await this.initializeMSAL();
-      
-      // Clear backend session
+      // Clear backend session first
       await this.clearBackendSession();
       
-      // Clear MSAL session
-      await msalInstance.logoutPopup({
-        postLogoutRedirectUri: window.location.origin
-      });
-      
-      // Clear local storage
+      // Clear local storage immediately
       this.clearTokens();
+      
+      // Only try MSAL logout if we have a valid MSAL instance
+      try {
+        const msalInstance = await this.initializeMSAL();
+        if (msalInstance && typeof msalInstance.logoutPopup === 'function') {
+          await msalInstance.logoutPopup({
+            postLogoutRedirectUri: window.location.origin
+          });
+        }
+      } catch (msalError) {
+        console.warn('MSAL logout failed, but tokens cleared:', msalError);
+        // Don't throw error for MSAL logout failure since we've already cleared tokens
+      }
     } catch (error) {
       console.error('Logout error:', error);
-      // Still clear local storage even if backend logout fails
+      // Always clear local storage even if other operations fail
       this.clearTokens();
     }
   }
@@ -287,11 +300,4 @@ class AuthService {
 }
 
 // Create singleton instance
-export const authService = new AuthService();
-
-// Extend Window interface for MSAL
-declare global {
-  interface Window {
-    msalInstance?: unknown;
-  }
-} 
+export const authService = new AuthService(); 

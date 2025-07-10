@@ -1,4 +1,4 @@
-import { FileText, Download, BarChart, Save, Link, Cpu } from 'lucide-react';
+import { FileText, Download, BarChart, Save, Link, Cpu, BarChart3, Loader2 } from 'lucide-react';
 import { QAItem } from '../types';
 import { VectorSimilarity } from './VectorSimilarity';
 import { GEOFanoutDensity } from './GEOFanoutDensity';
@@ -16,6 +16,7 @@ interface ResultsProps {
   crawledPages?: string[];
   answerProvider?: string;
   answerModel?: string;
+  isLoading?: boolean;
 }
 
 export function Results({
@@ -30,12 +31,17 @@ export function Results({
   crawlMode,
   crawledPages,
   answerProvider,
-  answerModel
+  answerModel,
+  isLoading
 }: ResultsProps) {
   if (!isVisible || qaData.length === 0) return null;
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+    <div className="card mb-8 backdrop-blur-md bg-black/80 border border-genfuze-green/60 shadow-xl">
+      <div className="flex items-center gap-2 mb-2">
+        <BarChart3 className="w-5 h-5 text-genfuze-green animate-pulse" />
+        <h3 className="text-lg font-bold text-genfuze-green">Results</h3>
+      </div>
       <div className="flex items-center gap-3 mb-6">
         <div className="p-2 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-lg">
           <FileText className="w-5 h-5 text-white" />
@@ -145,78 +151,84 @@ export function Results({
       </div>
       
       <div className="space-y-6 max-h-96 overflow-y-auto">
-        {qaData.map((item, index) => (
-          <div key={index} className="bg-gray-50 border border-gray-200 rounded-xl p-6">
-            <h4 className="text-lg font-semibold text-gray-800 mb-3">Question {index + 1}</h4>
-            
-            <div className="space-y-4">
-              <div>
-                <span className="font-semibold text-gray-700">Q:</span>
-                <p className="text-gray-800 mt-1 leading-relaxed">{item.question}</p>
-              </div>
-              
-              <div>
-                <span className="font-semibold text-gray-700">A:</span>
-                <p className="text-gray-800 mt-1 leading-relaxed">{item.answer}</p>
-              </div>
-              
-              <div className="flex flex-wrap gap-3 mt-4">
-                <div className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                  Accuracy: {item.accuracy}%
-                </div>
-                <div className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                  Sentiment: {item.sentiment}
-                </div>
-                <div className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
-                  Output Tokens: {item.outputTokens}
-                </div>
-                {typeof item.cost === 'number' && (
-                  <div className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-medium">
-                    API Cost: ${item.cost.toFixed(8)}
-                  </div>
-                )}
-                {typeof item.geoScore === 'number' && (
-                  <div className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">
-                    GEO Score: {item.geoScore}
-                  </div>
-                )}
-                {typeof item.citationLikelihood === 'number' && (
-                  <div className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">
-                    Citation Likelihood: {item.citationLikelihood}%
-                  </div>
-                )}
-                {/* GEO Score Breakdown */}
-                {item.geoBreakdown && (
-                  <div className="mt-2 text-xs text-gray-600 bg-yellow-50 border border-yellow-100 rounded p-2">
-                    <div><strong>GEO Breakdown:</strong></div>
-                    <div>Accuracy: {item.geoBreakdown.accuracy}</div>
-                    <div>Coverage: {item.geoBreakdown.coverage}</div>
-                    <div>Structure: {item.geoBreakdown.structure}</div>
-                    <div>Schema: {item.geoBreakdown.schema ? 'Yes' : 'No'}</div>
-                    <div>Accessibility: {item.geoBreakdown.access ? 'Yes' : 'No'}</div>
-                  </div>
-                )}
-              </div>
-              
-              {/* Vector Similarity Analysis */}
-              <VectorSimilarity
-                questionSimilarity={item.questionSimilarity}
-                answerSimilarity={item.answerSimilarity}
-                contentSimilarity={item.contentSimilarity}
-                questionConfidence={item.questionConfidence}
-                answerConfidence={item.answerConfidence}
-                contentConfidence={item.contentConfidence}
-                showDetails={false}
-              />
-              
-              {/* GEO Fanout Density Analysis */}
-              <GEOFanoutDensity
-                analysis={item.fanoutAnalysis}
-                showDetails={false}
-              />
-            </div>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-full">
+            <Loader2 className="w-12 h-12 text-genfuze-green animate-spin" />
           </div>
-        ))}
+        ) : (
+          qaData.map((item, index) => (
+            <div key={index} className="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:bg-genfuze-green/10 transition-colors">
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Question {index + 1}</h4>
+              
+              <div className="space-y-4">
+                <div>
+                  <span className="font-semibold text-gray-700">Q:</span>
+                  <p className="text-gray-800 mt-1 leading-relaxed">{item.question}</p>
+                </div>
+                
+                <div>
+                  <span className="font-semibold text-gray-700">A:</span>
+                  <p className="text-gray-800 mt-1 leading-relaxed">{item.answer}</p>
+                </div>
+                
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <div className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                    Accuracy: {item.accuracy}%
+                  </div>
+                  <div className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                    Sentiment: {item.sentiment}
+                  </div>
+                  <div className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+                    Output Tokens: {item.outputTokens}
+                  </div>
+                  {typeof item.cost === 'number' && (
+                    <div className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-medium">
+                      API Cost: ${item.cost.toFixed(8)}
+                    </div>
+                  )}
+                  {typeof item.geoScore === 'number' && (
+                    <div className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">
+                      GEO Score: {item.geoScore}
+                    </div>
+                  )}
+                  {typeof item.citationLikelihood === 'number' && (
+                    <div className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">
+                      Citation Likelihood: {item.citationLikelihood}%
+                    </div>
+                  )}
+                  {/* GEO Score Breakdown */}
+                  {item.geoBreakdown && (
+                    <div className="mt-2 text-xs text-gray-600 bg-yellow-50 border border-yellow-100 rounded p-2">
+                      <div><strong>GEO Breakdown:</strong></div>
+                      <div>Accuracy: {item.geoBreakdown.accuracy}</div>
+                      <div>Coverage: {item.geoBreakdown.coverage}</div>
+                      <div>Structure: {item.geoBreakdown.structure}</div>
+                      <div>Schema: {item.geoBreakdown.schema ? 'Yes' : 'No'}</div>
+                      <div>Accessibility: {item.geoBreakdown.access ? 'Yes' : 'No'}</div>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Vector Similarity Analysis */}
+                <VectorSimilarity
+                  questionSimilarity={item.questionSimilarity}
+                  answerSimilarity={item.answerSimilarity}
+                  contentSimilarity={item.contentSimilarity}
+                  questionConfidence={item.questionConfidence}
+                  answerConfidence={item.answerConfidence}
+                  contentConfidence={item.contentConfidence}
+                  showDetails={false}
+                />
+                
+                {/* GEO Fanout Density Analysis */}
+                <GEOFanoutDensity
+                  analysis={item.fanoutAnalysis}
+                  showDetails={false}
+                />
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

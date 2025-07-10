@@ -95,12 +95,12 @@ class LocalAuthService {
   // Create default admin user
   async createDefaultAdmin(db) {
     try {
-      const adminExists = await db.getUserByEmail('admin@demo.com');
+      const adminExists = await db.getUserByEmail('admin@example.com');
       if (!adminExists) {
         const hashedPassword = await this.hashPassword('admin123');
         const adminUser = {
           id: uuidv4(),
-          email: 'admin@demo.com',
+          email: 'admin@example.com',
           name: 'Admin User',
           displayName: 'Administrator',
           password: hashedPassword,
@@ -111,7 +111,7 @@ class LocalAuthService {
         };
         
         await db.createUser(adminUser);
-        console.log('✅ Default admin user created: admin@demo.com');
+        console.log('✅ Default admin user created: admin@example.com');
       }
     } catch (error) {
       console.error('Error creating default admin:', error);

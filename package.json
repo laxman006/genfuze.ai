@@ -43,5 +43,10 @@
   "bugs": {
     "url": "https://github.com/your-org/genfuze-ai/issues"
   },
-  "homepage": "https://github.com/your-org/genfuze-ai#readme"
-} 
+  "homepage": "https://github.com/your-org/genfuze-ai#readme",
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "react-icons": "^5.5.0",
+    "unfluff": "^3.2.0"
+  }
+}

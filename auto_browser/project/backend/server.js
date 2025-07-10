@@ -25,6 +25,8 @@ const {
 } = require('./browserAutomation');
 const { compareAnswers } = require('./platformAutomation');
 const axios = require('axios');
+const fetch = require('node-fetch');
+const unfluff = require('unfluff');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -1983,4 +1985,23 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Authentication: Enabled`);
   console.log(`Database: Connected`);
+}); 
+
+app.post('/api/extract-content', authenticateToken, async (req, res) => {
+  try {
+    const { url } = req.body;
+    if (!url) {
+      return res.status(400).json({ error: 'Missing URL' });
+    }
+    const response = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    if (!response.ok) {
+      return res.status(400).json({ error: 'Failed to fetch URL', status: response.status });
+    }
+    const html = await response.text();
+    const data = unfluff(html);
+    res.json({ success: true, content: data.text, title: data.title, description: data.description });
+  } catch (error) {
+    console.error('Extract content error:', error);
+    res.status(500).json({ error: 'Failed to extract content', details: error.message });
+  }
 }); 

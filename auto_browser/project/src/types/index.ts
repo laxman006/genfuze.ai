@@ -71,26 +71,17 @@ export interface DensityMetrics {
 export interface QAItem {
   question: string;
   answer: string;
-  accuracy: string;
+  accuracy: string | null;
   sentiment: string;
   inputTokens: number;
   outputTokens: number;
   totalTokens: number;
-  cost?: number; // Add cost for answer API cost
-  geoScore?: number; // Add GEO score for generative engine optimization
-  geoBreakdown?: any; // Add GEO score breakdown for advanced GEO scoring
-  citationLikelihood?: number; // Add citation likelihood score (0-100)
-  embedding?: number[]; // Add vector embedding for answer
-  questionEmbedding?: number[]; // Add vector embedding for question
-  // Vector similarity scores
-  questionSimilarity?: number; // Similarity score for question (0-1)
-  answerSimilarity?: number; // Similarity score for answer (0-1)
-  contentSimilarity?: number; // Similarity score for answer to content (0-1)
-  questionConfidence?: string; // Confidence level for question similarity
-  answerConfidence?: string; // Confidence level for answer similarity
-  contentConfidence?: string; // Confidence level for content similarity
-  // GEO Fanout Density Analysis
-  fanoutAnalysis?: GEOFanoutAnalysis; // Complete fanout analysis for this Q&A pair
+  cost: number;
+  geoScore: number;
+  citationLikelihood: number | null;
+  semanticRelevance?: string | null;
+  vectorSimilarity?: string | null;
+  fanoutAnalysis?: GEOFanoutAnalysis;
 }
 
 export interface GeneratedQuestion {
