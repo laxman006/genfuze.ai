@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Search, Brain, Calendar, Link, X, CheckCircle, AlertCircle, Users, Zap } from 'lucide-react';
 
 interface RelevantQuestion {
@@ -12,14 +12,6 @@ interface RelevantQuestion {
   sourceUrls?: string[];
   blogUrl?: string;
   similarityGroup?: string;
-}
-
-interface GroupedQuestions {
-  groupId: string;
-  groupName: string;
-  questions: RelevantQuestion[];
-  averageScore: number;
-  groupColor: string;
 }
 
 interface RelevantQuestionsModalProps {

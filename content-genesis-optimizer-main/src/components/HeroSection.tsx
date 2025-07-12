@@ -13,9 +13,9 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-hero overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden">
       {/* Background grid effect */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20"></div>
       
       {/* Animated background elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
@@ -24,34 +24,27 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
-            <Sparkles className="w-4 h-4 mr-2" />
-            Unified Q&A Generation Platform
+            <Sparkles className="w-4 h-4 mr-2 text-primary" />
+            Powered by Advanced AI Technology
           </Badge>
           
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent leading-tight">
-            Generate questions & answers from any content.<br />
-            <span className="block text-primary">All-in-one. Instantly.</span>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-black leading-tight">
+            Supercharge your content.<br />
+            <span className="block text-primary">Instantly.</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-            Paste a URL or your content, let Genfuze.ai crawl and analyze it, and instantly generate high-quality questions and answers using advanced AI models. Manage sessions, track statistics, export results, and see your cost breakdown—all in a seamless, modern dashboard.
+          <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Paste your site's content, generate AI-powered questions and answers, and boost your brand's visibility. Analyze, optimize, and automate—all in one place. No coding, just results.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button 
-<<<<<<< HEAD
               onClick={handleStartTrial}
               size="lg" 
               className="group bg-gradient-primary text-primary-foreground hover:shadow-glow transition-all duration-200 font-semibold text-lg px-8 py-4"
-=======
-              variant="hero" 
-              size="xl" 
-              className="group"
-              onClick={() => window.location.href = 'http://139.59.32.231:5174/CloudFuzeLLMQA'}
->>>>>>> 43a69ee01c185be4bfc5fe35e2759e65bc4b1a20
             >
-              Get Started Free
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform ml-2" />
+              Start Free Trial
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform ml-2 text-primary" />
             </Button>
             <Button 
               onClick={handleWatchDemo}
@@ -59,27 +52,23 @@ const HeroSection = () => {
               size="lg" 
               className="group border-primary/30 text-primary hover:bg-primary/10 hover:border-primary transition-all duration-200 font-semibold text-lg px-8 py-4"
             >
-              <Play className="w-5 h-5 mr-2" />
+              <Play className="w-5 h-5 mr-2 text-primary" />
               Watch Demo
             </Button>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
+          <div className="flex items-center justify-center gap-6 mt-8">
             <div className="flex items-center">
               <div className="w-2 h-2 bg-primary rounded-full mr-2"></div>
-              Q&A Generation
+              <span className="text-gray-700">No coding required</span>
             </div>
             <div className="flex items-center">
               <div className="w-2 h-2 bg-primary rounded-full mr-2"></div>
-              Session Management
+              <span className="text-gray-700">Instant results</span>
             </div>
             <div className="flex items-center">
               <div className="w-2 h-2 bg-primary rounded-full mr-2"></div>
-              Statistics & Cost Breakdown
-            </div>
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-primary rounded-full mr-2"></div>
-              Export & Analytics
+              <span className="text-gray-700">Advanced AI models</span>
             </div>
           </div>
         </div>

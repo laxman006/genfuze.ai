@@ -31,8 +31,10 @@ const HowItWorksSection = () => {
     }
   ];
 
+  const stepIconBg = "bg-primary/10";
+
   return (
-    <section id="how-it-works" className="py-20 bg-secondary/30 relative overflow-hidden">
+    <section id="how-it-works" className="py-20 bg-white relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(120,119,198,0.1),transparent_50%)]"></div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -40,11 +42,11 @@ const HowItWorksSection = () => {
           <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
             How It Works
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black">
             Turn content into questions—
             <span className="text-primary">fast</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
             Paste your site's content, pick your AI, and watch questions and answers roll in. 
             Analyze relevance, boost SEO, and see what your audience really wants—no tech skills needed.
           </p>
@@ -53,20 +55,20 @@ const HowItWorksSection = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {steps.map((step, index) => (
             <div key={index} className="relative">
-              <Card className="h-full border-border/50 bg-card/80 backdrop-blur-sm hover:shadow-glow-card transition-all duration-300">
+              <Card className="h-full border-border/50 bg-white/80 backdrop-blur-sm hover:shadow-glow-card transition-all duration-300">
                 <CardContent className="p-6 text-center">
                   <div className="relative mb-6">
-                    <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-glow">
-                      <step.icon className="w-8 h-8 text-primary-foreground" />
+                    <div className={`w-16 h-16 ${stepIconBg} rounded-full flex items-center justify-center mx-auto mb-4 shadow-glow`}>
+                      <step.icon className="w-8 h-8 text-primary" />
                     </div>
                     <Badge className="absolute -top-2 -right-2 bg-primary text-primary-foreground font-bold text-xs">
                       {step.step}
                     </Badge>
                   </div>
-                  <h3 className="text-lg font-semibold mb-3 text-foreground">
+                  <h3 className="text-lg font-semibold mb-3 text-black">
                     {step.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                  <p className="text-gray-700 text-sm leading-relaxed">
                     {step.description}
                   </p>
                 </CardContent>
@@ -83,7 +85,7 @@ const HowItWorksSection = () => {
         <div className="text-center">
           <Button variant="hero" size="xl" className="group">
             Start Your Free Trial
-            <Sparkles className="w-5 h-5 ml-2 group-hover:animate-pulse" />
+            <Sparkles className="w-5 h-5 ml-2 group-hover:animate-pulse text-primary" />
           </Button>
         </div>
       </div>

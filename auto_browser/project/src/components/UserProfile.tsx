@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { User, LogOut, Settings, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState } from 'react';
+import { LogOut, Settings, ChevronDown, ChevronUp } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 export function UserProfile() {

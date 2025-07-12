@@ -31,7 +31,7 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-secondary/20 relative overflow-hidden">
+    <section className="py-20 bg-white relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(120,119,198,0.1),transparent_50%)]"></div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -39,11 +39,11 @@ const TestimonialsSection = () => {
           <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
             Customer Success
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black">
             Trusted by{" "}
             <span className="text-primary">content creators</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto">
             See how leading brands are using ContentAI to revolutionize their content strategy 
             and dominate AI-powered search results.
           </p>
@@ -64,7 +64,7 @@ const TestimonialsSection = () => {
                   ))}
                 </div>
 
-                <p className="text-muted-foreground mb-6 leading-relaxed italic">
+                <p className="text-gray-800 mb-6 leading-relaxed italic">
                   "{testimonial.content}"
                 </p>
 
@@ -73,8 +73,8 @@ const TestimonialsSection = () => {
                     {testimonial.avatar}
                   </div>
                   <div>
-                    <div className="font-semibold text-foreground">{testimonial.name}</div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                    <div className="text-sm text-gray-700">
                       {testimonial.role} at {testimonial.company}
                     </div>
                   </div>

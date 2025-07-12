@@ -83,13 +83,13 @@ export function QuestionSelection({
         <div className="flex gap-2">
           <button
             onClick={onSelectAll}
-            className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm transition-colors"
+            className="px-3 py-1.5 border border-blue-600 text-blue-600 bg-white hover:bg-blue-50 rounded-lg text-sm font-semibold transition-colors"
           >
             Select All
           </button>
           <button
             onClick={onDeselectAll}
-            className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm transition-colors"
+            className="px-3 py-1.5 border border-blue-600 text-blue-600 bg-white hover:bg-blue-50 rounded-lg text-sm font-semibold transition-colors"
           >
             Deselect All
           </button>
@@ -324,7 +324,7 @@ export function QuestionSelection({
           <button
             onClick={onGenerateAnswers}
             disabled={isGeneratingAnswers}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg hover:from-green-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl font-semibold"
           >
             {isGeneratingAnswers ? (
               <>

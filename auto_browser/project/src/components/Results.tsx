@@ -37,10 +37,10 @@ export function Results({
   if (!isVisible || qaData.length === 0) return null;
 
   return (
-    <div className="card mb-8 backdrop-blur-md bg-black/80 border border-genfuze-green/60 shadow-xl">
+    <div className="card mb-8 backdrop-blur-md bg-black/80 border border-primary/60 shadow-xl">
       <div className="flex items-center gap-2 mb-2">
-        <BarChart3 className="w-5 h-5 text-genfuze-green animate-pulse" />
-        <h3 className="text-lg font-bold text-genfuze-green">Results</h3>
+        <BarChart3 className="w-5 h-5 text-primary animate-pulse" />
+        <h3 className="text-lg font-bold text-primary">Results</h3>
       </div>
       <div className="flex items-center gap-3 mb-6">
         <div className="p-2 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-lg">
@@ -153,11 +153,11 @@ export function Results({
       <div className="space-y-6 max-h-96 overflow-y-auto">
         {isLoading ? (
           <div className="flex justify-center items-center h-full">
-            <Loader2 className="w-12 h-12 text-genfuze-green animate-spin" />
+            <Loader2 className="w-12 h-12 text-primary animate-spin" />
           </div>
         ) : (
           qaData.map((item, index) => (
-            <div key={index} className="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:bg-genfuze-green/10 transition-colors">
+            <div key={index} className="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:bg-blue-50 transition-colors">
               <h4 className="text-lg font-semibold text-gray-800 mb-3">Question {index + 1}</h4>
               
               <div className="space-y-4">

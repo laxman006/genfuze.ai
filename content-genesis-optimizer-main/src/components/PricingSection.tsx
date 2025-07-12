@@ -61,17 +61,17 @@ const PricingSection = () => {
   ];
 
   return (
-    <section id="pricing" className="py-20 bg-background relative">
+    <section id="pricing" className="py-20 bg-white relative">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
             Flexible Pricing
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black">
             Plans for every{" "}
             <span className="text-primary">growth stage</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
             Pick a plan that fits. Upgrade, downgrade, or pause anytime—pay only for what you need.
           </p>
         </div>
@@ -80,16 +80,16 @@ const PricingSection = () => {
           {plans.map((plan, index) => (
             <Card 
               key={index}
-              className={`relative ${
+              className={`relative bg-white border ${
                 plan.highlighted 
-                  ? 'border-primary shadow-glow-card bg-card/90' 
-                  : 'border-border/50 hover:border-primary/20 bg-card/50'
+                  ? 'border-primary shadow-glow-card' 
+                  : 'border-border/50 hover:border-primary/20'
               } transition-all duration-300 hover:shadow-glow-card backdrop-blur-sm`}
             >
               {plan.highlighted && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <Badge className="bg-gradient-primary text-primary-foreground font-semibold px-4 py-1">
-                    <Star className="w-3 h-3 mr-1" />
+                    <Star className="w-3 h-3 mr-1 text-primary" />
                     {plan.badge}
                   </Badge>
                 </div>
@@ -97,17 +97,17 @@ const PricingSection = () => {
               
               <CardHeader className="text-center pb-4">
                 <div className="mb-2">
-                  <Badge variant="outline" className="text-xs bg-secondary/50">
+                  <Badge variant="outline" className="text-xs bg-secondary/50 text-primary">
                     {plan.name}
                   </Badge>
                 </div>
-                <CardTitle className="text-3xl md:text-4xl font-bold">
+                <CardTitle className="text-3xl md:text-4xl font-bold text-black">
                   {plan.price}
-                  <span className="text-lg text-muted-foreground font-normal">
+                  <span className="text-lg text-gray-800 font-normal">
                     {plan.period}
                   </span>
                 </CardTitle>
-                <CardDescription className="text-muted-foreground">
+                <CardDescription className="text-gray-800">
                   {plan.description}
                 </CardDescription>
               </CardHeader>
@@ -118,7 +118,7 @@ const PricingSection = () => {
                     <div className="w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                       <Check className="w-3 h-3 text-primary" />
                     </div>
-                    <span className="text-sm text-muted-foreground">{feature}</span>
+                    <span className="text-sm text-gray-800">{feature}</span>
                   </div>
                 ))}
               </CardContent>
@@ -126,8 +126,9 @@ const PricingSection = () => {
               <CardFooter>
                 <Button 
                   variant={plan.highlighted ? "hero" : "premium"} 
-                  className="w-full"
+                  className={`w-full ${plan.cta === 'Start Free Trial' || plan.cta === 'Contact Sales' ? 'bg-white border border-gray-300 text-gray-400 cursor-not-allowed' : ''}`}
                   size="lg"
+                  disabled={plan.cta === 'Start Free Trial' || plan.cta === 'Contact Sales'}
                 >
                   {plan.cta}
                 </Button>
@@ -137,10 +138,10 @@ const PricingSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">
+          <p className="text-gray-800 mb-4">
             All plans include a 14-day free trial. No credit card required.
           </p>
-          <div className="flex justify-center space-x-8 text-sm text-muted-foreground">
+          <div className="flex justify-center space-x-8 text-sm text-gray-800">
             <div className="flex items-center">
               <Check className="w-4 h-4 text-primary mr-2" />
               Cancel anytime

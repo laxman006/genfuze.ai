@@ -43,17 +43,17 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section id="features" className="py-20 bg-background relative">
+    <section id="features" className="py-20 bg-white relative">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
             Powerful Features
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Smarter content.{" "}
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black">
+            Smarter content.{' '}
             <span className="text-primary">Sharper results.</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
             Boost your site's reach with AI-driven question generation, deep content analysis, 
             and seamless optimization—no tech headaches, just more eyes on you.
           </p>
@@ -63,23 +63,23 @@ const FeaturesSection = () => {
           {features.map((feature, index) => (
             <Card 
               key={index} 
-              className="group hover:shadow-glow-card transition-all duration-300 border-border/50 hover:border-primary/20 bg-card/50 backdrop-blur-sm"
+              className="group hover:shadow-glow-card transition-all duration-300 border-border/50 hover:border-primary/20 bg-white/80 backdrop-blur-sm"
             >
               <CardHeader>
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                     <feature.icon className="w-6 h-6 text-primary" />
                   </div>
-                  <Badge variant="outline" className="text-xs bg-primary/5 border-primary/20">
+                  <Badge variant="outline" className="text-xs bg-primary/5 border-primary/20 text-primary">
                     {feature.badge}
                   </Badge>
                 </div>
-                <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                <CardTitle className="text-xl group-hover:text-primary transition-colors text-black">
                   {feature.title}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-muted-foreground leading-relaxed">
+                <CardDescription className="text-gray-700 leading-relaxed">
                   {feature.description}
                 </CardDescription>
               </CardContent>

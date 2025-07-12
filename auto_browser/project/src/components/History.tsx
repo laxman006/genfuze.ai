@@ -1,6 +1,7 @@
-import React from 'react';
-import { History as HistoryIcon, Download, Filter, Search } from 'lucide-react';
-import { QAItem } from '../types';
+import React, { useState, useEffect } from 'react';
+import { History as HistoryIcon, Download, Filter, Search, Calendar, User, BarChart3, Clock, FileText, DollarSign } from 'lucide-react';
+import { QAItem, SessionData } from '../types';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 interface HistoryProps {
   qaItems: QAItem[];
@@ -8,83 +9,142 @@ interface HistoryProps {
 }
 
 export function History({ qaItems, onExport }: HistoryProps) {
+  const [sessions] = useLocalStorage<SessionData[]>('llm_qa_sessions', []);
+  const [filteredSessions, setFilteredSessions] = useState<SessionData[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [dateFilter, setDateFilter] = useState('all');
+  const [selectedSession, setSelectedSession] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+
+  useEffect(() => {
+    let filtered = [...sessions];
+
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(session =>
+        session.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        session.qaData.some(qa => 
+          qa.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          qa.answer.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    }
+
+    // Apply date filter
+    if (dateFilter !== 'all') {
+      const now = new Date();
+      const filterDate = new Date();
+      
+      switch (dateFilter) {
+        case 'today':
+          filterDate.setHours(0, 0, 0, 0);
+          break;
+        case 'week':
+          filterDate.setDate(now.getDate() - 7);
+          break;
+        case 'month':
+          filterDate.setMonth(now.getMonth() - 1);
+          break;
+        case 'year':
+          filterDate.setFullYear(now.getFullYear() - 1);
+          break;
+      }
+      
+      filtered = filtered.filter(session => 
+        new Date(session.timestamp) >= filterDate
+      );
+    }
+
+    setFilteredSessions(filtered);
+  }, [sessions, searchTerm, dateFilter]);
+
   const handleExport = () => {
-    const csvContent = qaItems.map((item, index) => 
-      `${index + 1},"${item.question}","${item.answer}","${item.accuracy}","${item.sentiment}",${item.inputTokens},${item.outputTokens},${item.totalTokens}`
+    const selectedSessions = selectedSession 
+      ? filteredSessions.filter(s => s.id === selectedSession)
+      : filteredSessions;
+
+    const csvContent = selectedSessions.flatMap((session, sessionIndex) =>
+      session.qaData.map((item, itemIndex) => 
+        `${sessionIndex + 1}-${itemIndex + 1},"${session.name}","${session.timestamp}","${item.question}","${item.answer}","${item.accuracy}","${item.sentiment}",${item.inputTokens},${item.outputTokens},${item.totalTokens},${item.cost || 0}`
+      )
     ).join('\n');
     
-    const header = 'ID,Question,Answer,Accuracy,Sentiment,Input Tokens,Output Tokens,Total Tokens\n';
+    const header = 'ID,Session,Timestamp,Question,Answer,Accuracy,Sentiment,Input Tokens,Output Tokens,Total Tokens,Cost\n';
     onExport(header + csvContent, 'qa-history.csv', 'text/csv');
   };
 
-  return (
-    <div className="card backdrop-blur-md bg-black/80 border border-genfuze-green/60 shadow-xl">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <HistoryIcon className="w-7 h-7 text-genfuze-green" />
-          <h2 className="text-2xl font-bold text-genfuze-green">Q&A History</h2>
-        </div>
-        
-        <button
-          onClick={handleExport}
-          disabled={qaItems.length === 0}
-          className="flex items-center gap-2 px-4 py-2 bg-genfuze-green hover:bg-green-400 text-black font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <Download className="w-4 h-4" />
-          Export CSV
-        </button>
-      </div>
+  const getSessionStats = (session: SessionData) => {
+    const totalQuestions = session.qaData.length;
+    const totalTokens = session.qaData.reduce((sum, qa) => sum + qa.totalTokens, 0);
+    const totalCost = session.qaData.reduce((sum, qa) => sum + (qa.cost || 0), 0);
+    const avgAccuracy = session.qaData.length > 0 
+      ? session.qaData.reduce((sum, qa) => sum + (parseFloat(qa.accuracy) || 0), 0) / session.qaData.length
+      : 0;
 
-      {qaItems.length === 0 ? (
-        <div className="text-center py-12">
-          <HistoryIcon className="w-16 h-16 text-gray-500 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-400 mb-2">No Q&A History</h3>
-          <p className="text-gray-500">Generate some questions and answers to see them here.</p>
+    return { totalQuestions, totalTokens, totalCost, avgAccuracy };
+  };
+
+  const formatDate = (timestamp: string) => {
+    return new Date(timestamp).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto py-8">
+      <h1 className="text-3xl font-extrabold text-primary mb-8">Session History</h1>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="bg-white rounded-lg p-6 border border-black/10 text-black text-center">
+          <div className="text-lg font-bold">Total Sessions</div>
+          <div className="text-3xl font-extrabold">{sessions.length}</div>
         </div>
-      ) : (
-        <div className="space-y-4">
-          {qaItems.map((item, index) => (
-            <div key={index} className="bg-gray-800/50 border border-gray-600/30 rounded-lg p-6">
-              <div className="flex items-start justify-between mb-4">
-                <h3 className="text-lg font-semibold text-white">Q{index + 1}: {item.question}</h3>
-                <div className="flex items-center gap-2">
-                  <span className={`px-2 py-1 rounded text-xs font-medium ${
-                    item.accuracy === 'High' ? 'bg-green-900/50 text-green-300' :
-                    item.accuracy === 'Medium' ? 'bg-yellow-900/50 text-yellow-300' :
-                    'bg-red-900/50 text-red-300'
-                  }`}>
-                    {item.accuracy}
-                  </span>
-                  <span className={`px-2 py-1 rounded text-xs font-medium ${
-                    item.sentiment === 'Positive' ? 'bg-green-900/50 text-green-300' :
-                    item.sentiment === 'Negative' ? 'bg-red-900/50 text-red-300' :
-                    'bg-gray-900/50 text-gray-300'
-                  }`}>
-                    {item.sentiment}
-                  </span>
-                </div>
+        <div className="bg-white rounded-lg p-6 border border-black/10 text-black text-center">
+          <div className="text-lg font-bold">Total Questions</div>
+          <div className="text-3xl font-extrabold">
+              {filteredSessions.reduce((sum, session) => sum + session.qaData.length, 0)}
+            </div>
+        </div>
+        <div className="bg-white rounded-lg p-6 border border-black/10 text-black text-center">
+          <div className="text-lg font-bold">Total Cost</div>
+          <div className="text-3xl font-extrabold">
+              ${filteredSessions.reduce((sum, session) => sum + parseFloat(session.statistics?.totalCost || '0'), 0).toFixed(2)}
+            </div>
+        </div>
+        <div className="bg-white rounded-lg p-6 border border-black/10 text-black text-center">
+          <button onClick={handleExport} className="bg-black text-white px-4 py-2 rounded-lg font-bold shadow hover:bg-gray-800 transition">Export CSV</button>
+        </div>
+      </div>
+      <div className="space-y-8">
+        {filteredSessions.map((session, index) => (
+          <div key={`${session.id ?? ''}${index}`} className="bg-white rounded-lg border border-black/10 p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-lg">{session.name.charAt(0).toUpperCase()}</span>
               </div>
-              
-              <div className="bg-gray-900/50 rounded-lg p-4 mb-4">
-                <p className="text-gray-300 leading-relaxed">{item.answer}</p>
-              </div>
-              
-              <div className="flex items-center justify-between text-sm text-gray-400">
-                <div className="flex items-center gap-4">
-                  <span>Input: {item.inputTokens} tokens</span>
-                  <span>Output: {item.outputTokens} tokens</span>
-                  <span>Total: {item.totalTokens} tokens</span>
-                </div>
-                {item.cost && (
-                  <span className="text-genfuze-green font-medium">
-                    Cost: ${item.cost.toFixed(4)}
-                  </span>
-                )}
+              <div>
+                <div className="font-bold text-black text-lg">{session.name}</div>
+                <div className="text-xs text-black/60">{formatDate(session.timestamp)}</div>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+            <div className="space-y-3">
+              {session.qaData.map((item, index) => (
+                <div key={index} className="rounded-lg p-4 border border-black/10 bg-white mb-2">
+                  <div className="font-bold text-black mb-2">Q{index + 1}: {item.question}</div>
+                  {item.answer && (
+                    <div className="bg-primary/90 rounded-lg p-3 mb-2">
+                      <p className="text-white leading-relaxed text-base">{item.answer}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 } 
